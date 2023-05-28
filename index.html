@@ -6,9 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <script src="https://kit.fontawesome.com/d6f4ed830f.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-           
+    <div class="header">
+        <i class="fa-regular fa-bookmark" style="font-size: 36px;"></i>
+        <h1>My Library</h1>
+    </div>
+    <div class="main">
+        <div class="add">
+            <button id="add-book-btn">Add Book</button>
+        </div>
+        <div class="library">
+            <div class="card-container">
+
+                <div class="card">
+                    <!-- <div class="card-tile">
+                        <p class="card-desc">title</p>
+                        <h2 id="title">The lord of the rings</h2>
+                    </div>
+                    <div class="card-tile">
+                        <p class="card-desc">author</p>
+                        <h2 id="author">LOTR</h2> 
+                    </div>
+                    <div class="card-tile">
+                        <p class="card-desc">pages</p>
+                        <h2 id="pages">200</h2>
+                    </div>
+                    <div class="card-tile">
+                        <p class="card-desc">read</p>
+                        <h2 id="read">LOTR</h2>
+                    </div>   -->
+                    <p id="title">LOTR</p>
+                    <p id="author">by Author</p>
+                    <p id="pages">200 pages</p>
+                    <p id="read">Yes</p>
+                </div>
+                
+                
+            </div>
+        </div>
+
+
+
+        <div class="content">
+            <div id="book-info" class="hidden">
+                <form action="#" id="form">
+                    <div class="form-child">
+                        <label for="title">Title</label>
+                        <input type="text" id="title-input" name="title" required>
+                    </div>
+                    <div class="form-child">
+                        <label for="author">Author</label>
+                        <input type="text" id="author-input" name="author" required>
+                    </div>
+                    <div class="form-child">
+                        <label for="pages">Pages</label>
+                        <input type="number" id="pages-input" name="pages" required>
+                    </div>
+                    <div class="form-child">
+                        <label for="read">Read?</label>
+                        <input type="text" id="read-input" name="read" required>
+                    </div>
+                    <button type="submit" form="form" id="submit">SUBMIT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>               
+
+
+<script src="index.js"></script>
 </body>
 </html>

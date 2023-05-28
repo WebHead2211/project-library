@@ -1,0 +1,171 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+/* MAIN LAYOUT */
+
+.header {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+    height: 10vh;
+}
+
+.main {
+    height: 85vh;
+    background-color: rgb(20, 20, 20);
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    overflow: auto;
+}
+
+.footer {
+    background-color: rgb(0, 0, 0);
+    height: 5vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* HEADER CONTENT */
+
+h1 {
+    font-size: 3rem;
+}
+
+/* ADD BOOK BUTTON */
+
+.add {
+    margin: auto;
+}
+
+#add-book-btn {
+    font-size: 30px;
+    color: white;
+    background: none;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    border-radius: 9px;
+    margin: 20px auto;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+#add-book-btn:hover {
+    background: #000;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    box-shadow: 0px 1px 3px #666666;
+}
+
+/* HIDE AND UNHIDE */
+
+.hidden {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* MAIN CONTENT */
+
+.content {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+#book-info {
+    background-color: rgba(20, 20, 20, 0.9);
+    color: white;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    border-radius: 9px;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+}
+
+#book-info {
+    transition: 0.5s;
+}
+
+/* CARD STYLING */
+
+/* .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    text-align: center;
+} */
+
+.library {
+    padding: 20px 60px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, clamp(200px, 15%, 400px));
+    grid-template-rows: max-content;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    box-shadow: 0px 1px 8px #FFF;
+    background-color: rgb(22, 22, 22);
+    padding: 10px 0 10px;
+    margin: 0;
+    display: grid;
+    grid-template-rows: 100px 30px 30px 30px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.card p {
+    margin: 20px auto;
+    font-size: 20px;
+}
+
+#read {
+    width: 100%;
+    background-color: red;
+}
+
+/* .card-desc {
+    margin: 0;
+    text-align: center;
+    background-color: rgb(230, 230, 230);
+    font-size: 12px;
+}
+
+h2 {
+    margin: 10px;
+    text-align: center;
+} */
