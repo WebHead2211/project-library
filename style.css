@@ -79,10 +79,10 @@ h1 {
 /* MAIN CONTENT */
 
 .content {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #book-info {
@@ -100,8 +100,49 @@ form {
 }
 
 label {
-    display: inline-block;
-    width: 150px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    /* color: #555; */
+    color: #ffffff;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.label {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    /* color: #555; */
+    color: #ffffff;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    text-align: center;    
+}
+
+.normal-input {
+    width: 250px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    margin-right: 0;
+    padding: 10px;
+    transition: 0.25s;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.normal-input:focus, .normal-input:focus:valid {
+    border: none;
+    -webkit-box-shadow: 0px 0px 5px 0px #000000;
+    box-shadow: 0px 0px 5px 0px #ffffff;
+}
+
+.form-child {
+    display: flex;
+    flex-direction: column;
 }
 
 #book-info {
@@ -158,14 +199,19 @@ label {
     background-color: red;
 }
 
-/* .card-desc {
-    margin: 0;
-    text-align: center;
-    background-color: rgb(230, 230, 230);
-    font-size: 12px;
+
+#radio-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-h2 {
+#radio-container label {
     margin: 10px;
     text-align: center;
-} */
+}
+
+.radio-div {
+    display: flex;
+    flex-direction: row-reverse;
+}
