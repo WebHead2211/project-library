@@ -4,10 +4,16 @@ let titleInput = document.querySelector('#title-input');
 let authorInput = document.querySelector('#author-input');
 let pagesInput = document.querySelector('#pages-input');
 let readInput = document.querySelectorAll('input[name="read-radio"]');
-let readButton = document.querySelector('#read');
 let library = [];
 let currentBookNumber = 0;
 let latestBook;
+
+let delButtons;
+let allDivs;
+
+
+let readButtons;
+
 
 
 function Book(title, author, pages, read, index) {
@@ -17,6 +23,16 @@ function Book(title, author, pages, read, index) {
     this.read = read;
     this.index = index;
 }
+
+Book.prototype.toggleRead = function () {
+    const thisBook = this;
+    if (thisBook.read == 'Read') {
+        thisBook.read = 'Not Read';
+    } else {
+        thisBook.read = 'Read';
+    }
+}
+
 
 function createBook(title, author, pages, read, index) {
     const book = new Book(title, author, pages, read, index);
@@ -32,19 +48,18 @@ function addToLibrary(book) {
 function createCard(book) {
     let cardDiv = document.createElement('div');
     let readStatus;
-    if (book.read == 'Read'){
+    if (book.read == 'Read') {
         readStatus = 'read';
     } else {
         readStatus = 'not-read'
     }
     cardDiv.classList.add('card');
-    // cardDiv.setAttribute('id', `book${currentBookNumber}`);
     cardDiv.dataset.index = currentBookNumber;
     cardDiv.innerHTML = `<p id="title">${book.title}</p>
                         <p id="author">by ${book.author}</p>
                         <p id="pages">${book.pages} pages</p>
                         <button id="read" class="${readStatus}">${book.read}</button>
-                        <button class="delete">Delete</button>`
+                        <button class="delete"><i class="fa-solid fa-trash-can"></i></button>`
     document.querySelector('.card-container').appendChild(cardDiv);
     currentBookNumber++;
 }
@@ -65,9 +80,6 @@ addBtn.addEventListener('click', toggleForm);
 const form = document.querySelector('form');
 form.addEventListener('submit', event => {
     event.preventDefault();
-    //   if(titleInput.value == '' || authorInput.value == '' || pagesInput.value == '' || readInput.value == ''){
-    //     return false;
-    //   }
     let newBook = createBook(titleInput.value, authorInput.value, pagesInput.value, document.querySelector('input[name="read-radio"]:checked').value, currentBookNumber);
     addToLibrary(newBook);
     toggleForm();
@@ -78,58 +90,78 @@ form.addEventListener('submit', event => {
     delButtons = document.querySelectorAll('.delete');
     delButtons.forEach(function (i) {
         i.addEventListener('click', delFunction);
-      });
+    });
+    readButtons = document.querySelectorAll('#read');
+    readButtons.forEach(function (i) {
+        i.addEventListener('click', readFunction);
+    });
+    updateIndex();
 });
 
-function delFunction(){
+function delFunction() {
     const currentButton = this;
-    if(allDivs){
+    if (allDivs) {
         allDivs.forEach(function (i) {
-            if(i.querySelector('.delete') == currentButton){
-                const currentBook = library.find(element => {
-                    element.index = i.dataset.index;
+            if (i.querySelector('.delete') == currentButton) {
+                const currentBook = library.filter(element => {
+                    return element.index == i.dataset.index;
                 });
-                const index = library.indexOf(currentBook);
+                const index = library.indexOf(currentBook[0]);
                 library.splice(index, 1);
                 i.remove();
-                currentBookNumber = library.length;
-                console.log('w');
+                if (!library[0]) {
+                    currentBookNumber = 0;
+                } else {
+                    currentBookNumber = library[library.length - 1].index + 1;
+                }
+                updateIndex();
             } else {
-                console.log('not w');
+                return;
             }
-          });
+        });
     } else {
         return;
     }
 }
 
-let delButtons;
-let allDivs;
+function readFunction() {
+    const currentButton = this;
+    if (allDivs) {
+        allDivs.forEach(function (i) {
+            if (i.querySelector('#read') == currentButton) {
+                const currentBook = library.filter(element => {
+                    return element.index == i.dataset.index;
+                });
+                const index = library.indexOf(currentBook[0]);
+                library[index].toggleRead();
+                if (i.querySelector('#read').classList.contains('read')) {
+                    i.querySelector('#read').textContent = 'Not Read';
+                    i.querySelector('#read').classList.remove('read');
+                    i.querySelector('#read').classList.add('not-read');
+                } else {
+                    i.querySelector('#read').textContent = 'Read';
+                    i.querySelector('#read').classList.add('read');
+                    i.querySelector('#read').classList.remove('not-read');
+                }
+            } else {
+                return;
+            }
+        });
+    } else {
+        return;
+    }
+}
 
-// function createBook(title, author, pages, read){
-//     // let div1 = document.createElement('div');
-//     // div1.classList.add('card');
-//     // div1.innerHTML = `<p id="title">${title}</p>
-//     // <p id="author">by ${author}</p>
-//     // <p id="pages">${pages} pages</p>
-//     //                   <p id="read">${read}</p>`
-//     // document.querySelector('.card-container').appendChild(div1);
-// }
-
-// let submitButton = document.querySelector('#submit');
-
-// submitButton.addEventListener('click', addBook);
-
-
-
-// function addBook(event){
-//     event.preventDefault();
-//     let book1 = new Book(titleInput.value, authorInput.value, pagesInput.value, readInput.value);
-//     // if(book1.title == '' || book1.author == '' || book1.pages == '' || book1.read == ''){
-//         //     return;
-//             createBook(book1.title, book1.author, book1.pages, book1.read);
-//             info.classList.remove('active');
-//             info.classList.add('hidden');
-//             titleInput.value = authorInput.value = pagesInput.value = readInput.value = '';
-
-//         }
+function updateIndex(){
+    library.forEach(function(book){
+        allDivs.forEach(function (div) {
+            if (div.dataset.index == book.index) {
+                const newIndex = library.indexOf(book);
+                div.dataset.index = +newIndex;
+                book.index = +div.dataset.index;
+            } else {
+                return;
+            }
+        });
+    });
+}
