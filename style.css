@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
+    height: 100vh;
 }
 
 /* MAIN LAYOUT */
@@ -25,6 +26,8 @@ body {
     display: grid;
     grid-template-rows: 100px 1fr;
     overflow: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .footer {
@@ -66,10 +69,7 @@ h1 {
 
 /* HIDE AND UNHIDE */
 
-.hidden {
-    transform: scale(0);
-    opacity: 0;
-}
+
 
 .active {
     transform: scale(1);
@@ -86,11 +86,16 @@ h1 {
 }
 
 #book-info {
-    background-color: rgba(20, 20, 20, 0.9);
+    background-color: rgba(20, 20, 20, 1);
     color: white;
     border: 1px solid rgba(100, 100, 100, 0.5);
     border-radius: 9px;
-    padding: 20px;
+    padding: 40px 60px;
+}
+
+#book-info.hidden {
+    opacity: 0;
+    display: none;
 }
 
 form {
@@ -119,7 +124,7 @@ label {
     color: #ffffff;
     letter-spacing: 3px;
     margin-bottom: 5px;
-    text-align: center;    
+    text-align: center;
 }
 
 .normal-input {
@@ -134,7 +139,8 @@ label {
     border-radius: 5px;
 }
 
-.normal-input:focus, .normal-input:focus:valid {
+.normal-input:focus,
+.normal-input:focus:valid {
     border: none;
     -webkit-box-shadow: 0px 0px 5px 0px #000000;
     box-shadow: 0px 0px 5px 0px #ffffff;
@@ -145,9 +151,6 @@ label {
     flex-direction: column;
 }
 
-#book-info {
-    transition: 0.5s;
-}
 
 /* CARD STYLING */
 
@@ -175,7 +178,7 @@ label {
 .card {
     box-shadow: 0px 1px 8px #FFF;
     background-color: rgb(22, 22, 22);
-    padding: 10px 0 10px;
+    padding: 10px 10px 30px;
     margin: 0;
     display: grid;
     grid-template-rows: 100px 30px 30px 30px;
@@ -194,11 +197,47 @@ label {
     font-size: 20px;
 }
 
+#author, #pages {
+    font-size: 16px;
+}
+
 #read {
-    width: 100%;
+    border: none;
+    font-size: 20px;
+    border-radius: 12px;
+    transition: 0.2s;
+    padding: 10px;
+}
+
+#read.read {
+    background-color: rgb(9, 255, 0);
+}
+
+#read.read:hover {
+    cursor: pointer;
+    background-color: rgb(5, 165, 0);
+}
+
+#read.not-read {
     background-color: red;
 }
 
+#read.not-read:hover {
+    cursor: pointer;
+    background-color: rgb(194, 0, 0);
+}
+
+.delete {
+    border: none;
+    width: 100px;
+    margin: auto;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#delete:hover {
+    background-color: black;
+}
 
 #radio-container {
     display: flex;
