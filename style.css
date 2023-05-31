@@ -35,12 +35,17 @@ body {
     height: 5vh;
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* HEADER CONTENT */
 
 h1 {
     font-size: 3rem;
+    cursor: default;
 }
 
 /* ADD BOOK BUTTON */
@@ -49,7 +54,8 @@ h1 {
     margin: auto;
 }
 
-#add-book-btn {
+#add-book-btn,
+#clear-btn {
     font-size: 30px;
     color: white;
     background: none;
@@ -61,7 +67,8 @@ h1 {
     transition: 0.5s;
 }
 
-#add-book-btn:hover {
+#add-book-btn:hover,
+#clear-btn:hover {
     background: #000;
     border: 1px solid rgba(100, 100, 100, 0.5);
     box-shadow: 0px 1px 3px #666666;
@@ -151,17 +158,37 @@ label {
     flex-direction: column;
 }
 
-
-/* CARD STYLING */
-
-/* .card-container {
+#radio-container {
     display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: space-between;
-    gap: 40px;
+    justify-content: center;
+    gap: 20px;
+}
+
+#radio-container label {
+    margin: 10px;
     text-align: center;
-} */
+}
+
+.radio-div {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#submit {
+    border: 1px solid white;
+    font-size: 20px;
+    border-radius: 12px;
+    padding: 10px 0;
+    background-color: rgba(20, 20, 20, 1);
+    color: white;
+    transition: 0.3s ease;
+}
+
+#submit:hover {
+    cursor: pointer;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    box-shadow: 0px 1px 3px #666666;
+}
 
 .library {
     padding: 20px 60px;
@@ -197,15 +224,48 @@ label {
     font-size: 20px;
 }
 
-#author, #pages {
+#title {
+    font-family: 'Secular One', sans-serif;
+}
+
+#author {
+    font-style: italic;
+}
+
+#author,
+#pages {
     font-size: 16px;
+}
+
+.card p {
+    position: relative;
+}
+
+.card p:hover {
+    cursor: default;
+}
+
+.card p::after {
+    position: absolute;
+    left: 50%;
+    content: '';
+    height: 3px;
+    background: #fff;
+    transition: all 0.5s linear;
+    width: 0;
+    bottom: -3px;
+    transition: 0.2s;
+}
+
+.card p:hover::after {
+    width: 100%;
+    left: 0px;
 }
 
 #read {
     border: 1px solid black;
     font-size: 20px;
     border-radius: 12px;
-    transition: 0.2s;
     padding: 10px 0;
     width: 100px;
     margin: auto;
@@ -234,6 +294,7 @@ label {
     transform: scale(1.05);
 }
 
+
 .delete {
     border: 1px solid rgb(189, 189, 189);
     border-radius: 12px;
@@ -254,18 +315,17 @@ label {
     color: white;
 }
 
-#radio-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-#radio-container label {
-    margin: 10px;
+.footer p {
+    margin: 0;
+    color: white;
     text-align: center;
 }
 
-.radio-div {
-    display: flex;
-    flex-direction: row-reverse;
+.footer a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer a:visited {
+    color: white
 }

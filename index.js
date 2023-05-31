@@ -1,20 +1,38 @@
-let addBtn = document.querySelector('#add-book-btn');
-let info = document.querySelector('#book-info');
-let titleInput = document.querySelector('#title-input');
-let authorInput = document.querySelector('#author-input');
-let pagesInput = document.querySelector('#pages-input');
-let readInput = document.querySelectorAll('input[name="read-radio"]');
+const addBtn = document.querySelector('#add-book-btn');
+const info = document.querySelector('#book-info');
+const titleInput = document.querySelector('#title-input');
+const authorInput = document.querySelector('#author-input');
+const pagesInput = document.querySelector('#pages-input');
+const readInput = document.querySelectorAll('input[name="read-radio"]');
+const form = document.querySelector('form');
+const clearBtn = document.querySelector('#clear-btn');
 let library = [];
 let currentBookNumber = 0;
 let latestBook;
-
 let delButtons;
 let allDivs;
-
-
 let readButtons;
 
+addBtn.addEventListener('click', toggleForm);
+clearBtn.addEventListener('click', delAll);
 
+form.addEventListener('submit', event => {
+    event.preventDefault();
+    let newBook = createBook(titleInput.value, authorInput.value, pagesInput.value, document.querySelector('input[name="read-radio"]:checked').value, currentBookNumber);
+    addToLibrary(newBook);
+    toggleForm();
+
+    allDivs = document.querySelectorAll('.card');
+    delButtons = document.querySelectorAll('.delete');
+    delButtons.forEach(function (button) {
+        button.addEventListener('click', delFunction);
+    });
+    readButtons = document.querySelectorAll('#read');
+    readButtons.forEach(function (i) {
+        i.addEventListener('click', readFunction);
+    });
+    updateIndex();
+});
 
 function Book(title, author, pages, read, index) {
     this.title = title;
@@ -32,7 +50,6 @@ Book.prototype.toggleRead = function () {
         thisBook.read = 'Read';
     }
 }
-
 
 function createBook(title, author, pages, read, index) {
     const book = new Book(title, author, pages, read, index);
@@ -74,41 +91,18 @@ function toggleForm() {
     info.classList.remove('hidden');
 }
 
-addBtn.addEventListener('click', toggleForm);
-
-
-const form = document.querySelector('form');
-form.addEventListener('submit', event => {
-    event.preventDefault();
-    let newBook = createBook(titleInput.value, authorInput.value, pagesInput.value, document.querySelector('input[name="read-radio"]:checked').value, currentBookNumber);
-    addToLibrary(newBook);
-    toggleForm();
-    console.log('Form submission cancelled.');
-
-
-    allDivs = document.querySelectorAll('.card');
-    delButtons = document.querySelectorAll('.delete');
-    delButtons.forEach(function (i) {
-        i.addEventListener('click', delFunction);
-    });
-    readButtons = document.querySelectorAll('#read');
-    readButtons.forEach(function (i) {
-        i.addEventListener('click', readFunction);
-    });
-    updateIndex();
-});
 
 function delFunction() {
     const currentButton = this;
     if (allDivs) {
-        allDivs.forEach(function (i) {
-            if (i.querySelector('.delete') == currentButton) {
+        allDivs.forEach(function (div) {
+            if (div.querySelector('.delete') == currentButton) {
                 const currentBook = library.filter(element => {
-                    return element.index == i.dataset.index;
+                    return element.index == div.dataset.index;
                 });
                 const index = library.indexOf(currentBook[0]);
                 library.splice(index, 1);
-                i.remove();
+                div.remove();
                 if (!library[0]) {
                     currentBookNumber = 0;
                 } else {
@@ -118,6 +112,17 @@ function delFunction() {
             } else {
                 return;
             }
+        });
+    } else {
+        return;
+    }
+}
+
+function delAll() {
+    if (library[0]) {
+        library = [];
+        allDivs.forEach(function (div) {
+            div.remove();
         });
     } else {
         return;
@@ -152,8 +157,8 @@ function readFunction() {
     }
 }
 
-function updateIndex(){
-    library.forEach(function(book){
+function updateIndex() {
+    library.forEach(function (book) {
         allDivs.forEach(function (div) {
             if (div.dataset.index == book.index) {
                 const newIndex = library.indexOf(book);
