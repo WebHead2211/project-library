@@ -34,20 +34,22 @@ form.addEventListener('submit', event => {
     updateIndex();
 });
 
-function Book(title, author, pages, read, index) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.index = index;
-}
+class Book {
+    constructor(title, author, pages, read, index) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.index = index;
+    }
 
-Book.prototype.toggleRead = function () {
-    const thisBook = this;
-    if (thisBook.read == 'Read') {
-        thisBook.read = 'Not Read';
-    } else {
-        thisBook.read = 'Read';
+    toggleRead() {
+        const thisBook = this;
+        if (thisBook.read == 'Read') {
+            thisBook.read = 'Not Read';
+        } else {
+            thisBook.read = 'Read';
+        }
     }
 }
 
